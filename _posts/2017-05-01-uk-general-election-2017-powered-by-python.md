@@ -1,11 +1,11 @@
 ---
 header-img: "img/parliment.jpeg"
 ---
-For anyone like me who wants to do DIY election analysis, first step is to get the data and make it ready for analysis. This is a time consuming part of the process and sadly it's also must do part. According to oppinion polls most important subject in this election is brexit, given that referandum result and 2015 general election results are vital for any analysis. In this post I will demonstrade how did I get the data and what did I do to clean it. It's important partially because I made this datasets public so anyone whom whishes to do their own anlysis can use clean and reliable data.
+For anyone like me who wants to do DIY election analysis, first step is to get the data and make it ready for analysis. This is a time consuming part of the process and sadly it's also must do part. According to opinion polls most important subject in this election is brexit, given that referendum result and 2015 general election results are vital for any analysis. In this post I will demonstrate how did I get the data and what did I do to clean it. It's important partially because I made this datasets public so anyone whom wishes to do their own analysis can use clean and reliable data.
 
-Data souce for general election is from electoral commisions [website](http://www.electoralcommission.org.uk/our-work/our-research/electoral-data) and for referandum result its from [wikipedia](https://en.wikipedia.org/wiki/Results_of_the_United_Kingdom_European_Union_membership_referendum,_2016) and the reason why I choose wikipedia is that electoral commition doesn't have a result by constituency. If you dont want to be involve with data wrangling then you can get the end product of this process from my Github repo [here.](https://github.com/bbuluttekin/election_data_2017)
+Data source for general election is from electoral commission [website](http://www.electoralcommission.org.uk/our-work/our-research/electoral-data) and for referendum result its from [wikipedia](https://en.wikipedia.org/wiki/Results_of_the_United_Kingdom_European_Union_membership_referendum,_2016) and the reason why I choose wikipedia is that electoral commission doesn't have a result by constituency. If you don't want to be involve with data wrangling then you can get the end product of this process from my Github repo [here.](https://github.com/bbuluttekin/election_data_2017)
 
-Let's get the open source librarys I used and take a peak at the data.
+Let's get the open source libraries I used and take a peak at the data.
 
 
 ```python
@@ -194,7 +194,7 @@ len(df.constituency_name.unique())
 
 
 
-It appears number of entries check. Let's now examine the all the parties hold seats and check if there is any error.
+It appears number of entries are correct. Let's now examine the all the parties hold seats and check if there is any error.
 
 
 ```python
@@ -209,7 +209,7 @@ df.first_party.unique()
 
 
 
-As we can see there is two non-party entry in the data. One of it is 'Ind' for Indipendent candidate and other one is 'Spk' which is short hand for House Speaker. Vote count for both of these instences are recorded in column 'other', given that condition it's a good practice to store these instences as other so we can make cross calculation between records to corresponding column data. One way this could be helpful for us is to calculate how many votes first party received in all constituencies.
+As we can see there is two non-party entry in the data. One of it is 'Ind' for Independent candidate and other one is 'Spk' which is short hand for House Speaker. Vote count for both of these instances are recorded in column 'other', given that condition it's a good practice to store these instances as other so we can make cross calculation between records to corresponding column data. One way this could be helpful for us is to calculate how many votes first party received in all constituencies.
 
 
 ```python
@@ -240,7 +240,7 @@ df.loc[df.second_party == 'pbpa', ['second_party']] = 'other'
 df.loc[df.second_party == 'respect', ['second_party']] = 'other'
 ```
 
-Now we can change to lower case for all the string entries so when we merge with referandum result, we don't get any conflicted constituency names.
+Now we can change to lower case for all the string entries so when we merge with referendum result, we don't get any conflicted constituency names.
 
 
 ```python
@@ -251,7 +251,7 @@ for col in col_to_lower:
     df[col] = [_.lower() for _ in df[col]]
 ```
 
-Also constituencies that have a special chracter in their name will also create conflic when merged. Here I will remove all characters from constituency names.
+Also constituencies that have a special character in their name will also create conflict when merged. Here I will remove all characters from constituency names.
 
 
 ```python
@@ -260,6 +260,7 @@ for i in df.constituency_name:
     if ',' in i:
         j = "".join(i.split(','))
         if ' &' in j:
+            j = "".join(i.split(' &'))
             const_name.append(j)
         else:
             const_name.append(j)
@@ -272,7 +273,7 @@ for i in df.constituency_name:
 df.constituency_name = const_name
 ```
 
-We now can fetch the referandum results. Data we are looking for stored in the 36th (Python use 0 based index.) table in that page. I will print the table head variables to see if thats the correct table.
+We now can fetch the referendum results. Data we are looking for stored in the 36th (Python use 0 based index.) table in that page. I will print the table head variables to see if thats the correct table.
 
 
 ```python
@@ -409,7 +410,7 @@ len(df.constituency_name)
 
 
 
-Percentage sign within the remain and leave columns should be removed so we can turn that columns into floting numbers and make it available to arithmetic operations.
+Percentage sign within the remain and leave columns should be removed so we can turn that columns into floating numbers and make it available to arithmetic operations.
 
 
 ```python
@@ -417,7 +418,7 @@ df_cons.remain = [float(_.split('%')[0]) for _ in df_cons.remain]
 df_cons.leave = [float(_.split('%')[0]) for _ in df_cons.leave]
 ```
 
-Finally, unifying constituency names by turning then to lower case and removing special characters. It's also important to notice that region names slightly diffrent from general election results. In the second data set region named as south west england instead of south west, we should also unify them too.
+Finally, unifying constituency names by turning then to lower case and removing special characters. It's also important to notice that region names slightly different from general election results. In the second data set region named as south west England instead of south west, we should also unify them too.
 
 
 ```python
@@ -474,7 +475,7 @@ df_cons.constituency_name_eu = cons_name
 ## Time for Testing
 
 Now that our data entries are unified we can run some validation tests to see if everything is as expected.
-First test is for referandum data integrity. I will check if the percentage sums of leave and remain add up to 100%.
+First test is for referendum data integrity. I will check if the percentage sums of leave and remain add up to 100%.
 
 
 ```python
@@ -578,7 +579,7 @@ df_cons.ix[l_validate[l_validate != 100].index]
 
 
 
-It appears we have 8 instances of inaccuracies. This is paticularly hard to automate problem which I had to look up other reported results and manually change them.
+It appears we have 8 instances of inaccuracies. This is particularly hard to automate problem which I had to look up other reported results and manually change them.
 
 
 ```python
@@ -589,7 +590,7 @@ df_cons.ix[l_validate[l_validate != 100].index, 'remain'] = remain_man
 df_cons.ix[l_validate[l_validate != 100].index, 'leave'] = leave_man
 ```
 
-Final test is about consituency names, I will check if there is any constituency name not appears in other data set.
+Final test is about constituency names, I will check if there is any constituency name not appears in other data set.
 
 
 ```python
