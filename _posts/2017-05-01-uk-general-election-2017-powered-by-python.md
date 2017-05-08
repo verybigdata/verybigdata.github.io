@@ -579,7 +579,7 @@ df_cons.ix[l_validate[l_validate != 100].index]
 
 
 
-It appears we have 8 instances of inaccuracies. This is particularly hard to automate problem which I had to look up other reported results and manually change them.
+It appears we have 8 instances of inaccuracies. This problem is particularly hard to automate. I had to look up other reported results and manually change them.
 
 
 ```python
