@@ -36,12 +36,12 @@ defaults:
       path: "" # an empty string here means all files in the project
       type: "posts"
     values:
-      author: Baran Buluttekin
+      author: "Baran Buluttekin"
       layout: "post"
   -
     scope:
       path: "" # an empty string here means all files in the project
       type: "pages"
     values:
-      author: Baran
+      author: "Baran Buluttekin"
       layout: "page"
