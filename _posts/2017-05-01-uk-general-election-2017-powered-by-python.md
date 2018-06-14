@@ -1,5 +1,6 @@
 ---
 header-img: "img/parliment.jpeg"
+image: "img/parliment.jpeg"
 ---
 For anyone like me who wants to do DIY election analysis, first step is to get the data and make it ready for analysis. This is a time consuming part of the process and sadly it's also must do part. According to opinion polls most important subject in this election is brexit, given that referendum result and 2015 general election results are vital for any analysis. In this post I will demonstrate how did I get the data and what did I do to clean it. It's important partially because I made this datasets public so anyone whom wishes to do their own analysis can use clean and reliable data.
 
