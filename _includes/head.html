@@ -36,5 +36,9 @@
     {% feed_meta %}
     {% include third_party.html %}
     {% include g_analytics.html %}
+    {% if page.title == "About" %}
+    <!-- Linkedin badges script -->
+    <script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+    {% endif %}
 
 </head>
