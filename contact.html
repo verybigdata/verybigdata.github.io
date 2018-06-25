@@ -11,15 +11,16 @@ image: "img/connect.jpeg"
   <form action="https://formspree.io/{{ site.email_username }}" method="post">
     <div class="form-group">
     <label for="name">Name:</label>
-    <input type="text" id="name" class="form-control" name="name" placeholder="Enter Full Name">
+    <input type="text" id="name" class="form-control" name="name" placeholder="Enter Full Name" required="required">
     </div>
     <div class="form-group">
       <label for="email">Email:</label>
-      <input type="email" id="email" name="_replyto" class="form-control" placeholder="Enter Email">
+      <input type="email" id="email" name="_replyto" class="form-control" placeholder="Enter Email"
+       required="required">
     </div>
     <div class="form-group">
       <label for="massege">Message:</label>
-      <textarea name="message" id="massege" rows="10" class="form-control" placeholder="Your Massege"></textarea>
+      <textarea name="message" id="massege" rows="10" class="form-control" placeholder="Your Massege" required="required"></textarea>
     </div>
     <input type="hidden" name="_next" value="{{ site.baseurl }}{% link contact.html %}" />
     <input type="text" name="_gotcha" style="display:none" />
