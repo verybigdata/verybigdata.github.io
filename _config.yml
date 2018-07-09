@@ -5,7 +5,7 @@ header-img: img/main.jpeg
 author: "Baran Buluttekin"
 description: ""
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://verybigdata.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: BuluttekinBaran
 github_username:  bbuluttekin
 linkedin_username: bbuluttekin
