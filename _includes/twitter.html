@@ -3,4 +3,4 @@
 <meta name="twitter:creator" content="{{ site.twitter_username }}">
 <meta name="twitter:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
 <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-<meta name="twitter:image" content="{% if post.image %}{{ post.image }}{% else %}{{ page.image }}{% endif %}">
+<meta name="twitter:image" content="{% if post.image %}{{ post.image | absolute_url }}{% else %}{{ page.image | absolute_url }}{% endif %}">
