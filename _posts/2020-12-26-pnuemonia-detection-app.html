@@ -1,0 +1,125 @@
+---
+header-img: "img/light.jpg"
+image: "img/light.jpg"
+title: "Pneumonia detection with ML"
+---
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script> -->
+<style>
+    .loader {
+        margin: auto;
+        border: 10px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 10px solid #020303;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite;
+        /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% {
+            -webkit-transform: rotate(0deg);
+        }
+
+        100% {
+            -webkit-transform: rotate(360deg);
+        }
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+
+<script>
+    var loadFile = function (event) {
+        $("#result").text("")
+        var output = document.getElementById('output');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src)
+        }
+    };
+
+
+    let model;
+    (async function () {
+        model = await tf.loadLayersModel(
+            "https://bbuluttekin.github.io/MSc-Project/static/model.json");
+        $('#spinner').parent().hide();
+    })();
+
+    var predict = async function () {
+        let image = $("#output").get(0);
+        let tensor = tf.browser.fromPixels(image);
+        let resizedTensor = tf.image.resizeBilinear(tensor, [224, 224])
+            .mul(1 / 255)
+            .expandDims();
+        let prediction = await model.predict(resizedTensor).data();
+        if (prediction <= 0.5) {
+            // Normal
+            $("#result").text(`Result: Pneumonia not detected. (Probability of pneumonia: ${Number(prediction).toFixed(3)})`);
+        } else {
+            // Pneumonia 
+            $("#result").text(`Result: Pneumonia detected. (Probability of pneumonia: ${Number(prediction).toFixed(3)})`);
+        }
+    };  
+</script>
+
+
+<br>
+<h2 class="text-center">Choose an image for prediction</h2>
+
+<div class="center-block">
+    <div class="text-center" id="spinner">
+        <strong>Please wait model is loading...<div class="loader"></div></strong>
+
+
+    </div>
+</div>
+
+<br>
+<div class="text-centre">
+    <p>Welcome to the pneumonia detection app. Please upload an image and click predict button to run prediction. If you
+        would like to test the app you can find sample images <a
+            href="https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia">here</a>.</p>
+</div>
+
+<div class="custom-file">
+    <input type="file" class="form-control" id="inputGroupFile01" accept="image/*" onchange="loadFile(event)">
+
+</div>
+<br>
+
+<img id="output" class="center-block" width="400" />
+
+
+<div class="text-center">
+    <p id="result"></p>
+</div>
+
+<div class="text-center">
+    <button type="button" class="btn btn-dark" id="predict-btn" onclick="predict()">Predict</button>
+</div>
