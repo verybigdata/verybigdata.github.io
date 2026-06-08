@@ -4,11 +4,11 @@
 Personal Jekyll blog hosted on GitHub Pages. Uses the `minima` theme with custom Bootstrap-based CSS/JS overrides.
 
 ## Stack
-- **Jekyll 4.4.1** (via Ruby 3.2, see `Dockerfile`)
+- **Jekyll 4.4.1** (via Ruby 3.3.4, see `Dockerfile`)
 - **Theme**: minima
 - **Plugins**: jekyll-feed, jekyll-paginate, jekyll-seo-tag, jekyll-sitemap
 - **Frontend**: Bootstrap + custom `clean-blog` CSS/JS
-- **Docker**: Custom `Dockerfile` based on `ruby:3.2-bookworm` (ARM64 native)
+- **Docker**: Uses `ghcr.io/actions/jekyll-build-pages:v1.0.13` for parity with GitHub Pages build environment (AMD64; runs via emulation on ARM64 hosts)
 
 ## Local Dev Commands
 ```bash

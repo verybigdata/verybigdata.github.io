@@ -21,7 +21,7 @@ kramdown:
 permalink: /:title
 exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 theme: minima
-gems:
+plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-seo-tag
