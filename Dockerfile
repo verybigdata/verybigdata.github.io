@@ -1,5 +1,5 @@
 # Use official Ruby image with Debian Bookworm (ARM64 compatible)
-FROM ruby:3.2-bookworm
+FROM ruby:3.3-bookworm
 
 # Install dependencies for Jekyll and native extensions
 RUN apt-get update && apt-get install -y \
