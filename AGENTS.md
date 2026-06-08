@@ -4,10 +4,11 @@
 Personal Jekyll blog hosted on GitHub Pages. Uses the `minima` theme with custom Bootstrap-based CSS/JS overrides.
 
 ## Stack
-- **Jekyll 4.1.1** (via Ruby 2.7.1, see `Gemfile.lock`)
+- **Jekyll 4.4.1** (via Ruby 3.2, see `Dockerfile`)
 - **Theme**: minima
 - **Plugins**: jekyll-feed, jekyll-paginate, jekyll-seo-tag, jekyll-sitemap
 - **Frontend**: Bootstrap + custom `clean-blog` CSS/JS
+- **Docker**: Custom `Dockerfile` based on `ruby:3.2-bookworm` (ARM64 native)
 
 ## Local Dev Commands
 ```bash
@@ -20,7 +21,7 @@ bundle exec jekyll build --drafts
 
 Or via Docker (avoids local Ruby setup):
 ```bash
-docker-compose up jekyll-dev   # runs on http://localhost:4000 with --drafts
+docker-compose up --build jekyll-dev   # builds image and runs on http://localhost:4000 with --drafts
 ```
 
 ## Asset Build (Grunt)
