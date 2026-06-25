@@ -1,0 +1,52 @@
+.post-content {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+  margin-top: 2em;
+}
+
+.post-content ul,
+.post-content ol {
+  padding-left: 1.5em;
+  margin: 0 0 1.25em;
+}
+
+.post-content li {
+  margin-bottom: 0.3em;
+}
+
+.post-content img {
+  margin: 1.5em auto;
+  border-radius: 6px;
+}
+
+.post-pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 2rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+.post-pager a {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  line-height: 1.4;
+  max-width: 45%;
+}
+
+.post-pager a:hover {
+  text-decoration: underline;
+}
+
+.pager-next {
+  text-align: right;
+  margin-left: auto;
+}

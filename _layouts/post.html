@@ -2,49 +2,32 @@
 layout: default
 ---
 
-<!-- Post Header -->
-<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="post-heading">
-                    <h1>{{ page.title }}</h1>
-                    {% if page.subtitle %}
-                    <h2 class="subheading">{{ page.subtitle }}</h2>
-                    {% endif %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+{% if page.header-img %}
+<header class="page-hero has-image" style="background-image: url('{{ site.baseurl }}/{{ page.header-img }}')">
+{% else %}
+<header class="page-hero">
+{% endif %}
+  <div class="page-hero__inner">
+    <h1 class="page-hero__title">{{ page.title }}</h1>
+    {% if page.subtitle %}
+    <p class="page-hero__subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+    <p class="page-hero__meta">
+      By {% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}
+      &middot; {{ page.date | date: "%B %-d, %Y" }}
+    </p>
+  </div>
 </header>
 
-<!-- Post Content -->
-<article>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<article class="container post-content">
+  {{ content }}
 
-				{{ content }}
-
-                <hr>
-
-                <ul class="pager">
-                    {% if page.previous.url %}
-                    <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">&larr; Previous Post</a>
-                    </li>
-                    {% endif %}
-                    {% if page.next.url %}
-                    <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">Next Post &rarr;</a>
-                    </li>
-                    {% endif %}
-                </ul>
-
-            </div>
-        </div>
-    </div>
+  <nav class="post-pager" aria-label="Post navigation">
+    {% if page.previous.url %}
+    <a class="pager-prev" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}">&larr; {{ page.previous.title }}</a>
+    {% endif %}
+    {% if page.next.url %}
+    <a class="pager-next" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}">{{ page.next.title }} &rarr;</a>
+    {% endif %}
+  </nav>
 </article>
-
-<hr>

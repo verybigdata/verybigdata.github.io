@@ -1,37 +1,42 @@
 ---
-layout: page
-description: "All About Technology"
+layout: default
+description: "Data science & software"
 image: "img/main.jpeg"
 ---
 
-{% for post in paginator.posts %}
-<div class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">            {{ post.title }}
-        </h2>
-        {% if post.subtitle %}
-        <h3 class="post-subtitle">
-            {{ post.subtitle }}
-        </h3>
-        {% endif %}
-    </a>
-    <p class="post-meta">Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.author }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}</p>
-</div>
-<hr>
-{% endfor %}
+<header class="page-hero has-image" style="background-image: url('{{ site.baseurl }}/img/main.jpeg')">
+  <div class="page-hero__inner">
+    <h1 class="page-hero__title">{{ site.title }}</h1>
+    <p class="page-hero__subtitle">Data science &amp; software</p>
+  </div>
+</header>
 
-<!-- Pager -->
-{% if paginator.total_pages > 1 %}
-<ul class="pager">
+<main class="container">
+  <div class="post-list">
+    {% for post in paginator.posts %}
+    <article class="post-list__item">
+      <p class="post-list__date">{{ post.date | date: "%B %-d, %Y" }}</p>
+      <h2 class="post-list__title">
+        <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+      </h2>
+      {% if post.description %}
+      <p class="post-list__excerpt">{{ post.description }}</p>
+      {% endif %}
+      <p class="post-list__meta">By {% if post.author %}{{ post.author }}{% else %}{{ site.author }}{% endif %}</p>
+    </article>
+    {% endfor %}
+  </div>
+
+  {% if paginator.total_pages > 1 %}
+  <nav class="pagination" aria-label="Post pagination">
     {% if paginator.previous_page %}
-    <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-    </li>
+    <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer</a>
+    {% else %}
+    <span></span>
     {% endif %}
     {% if paginator.next_page %}
-    <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-    </li>
+    <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older &rarr;</a>
     {% endif %}
-</ul>
-{% endif %}
+  </nav>
+  {% endif %}
+</main>

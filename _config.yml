@@ -3,7 +3,8 @@ title: Overthinking
 email_username: bbuluttekin@gmail.com
 header-img: img/main.jpeg
 author: "Baran Buluttekin"
-description: "Test"
+description: "Data science & software"
+copyright_name: "Baran Buluttekin"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://verybigdata.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: BuluttekinBaran
@@ -19,17 +20,23 @@ kramdown:
   input: GFM
   hard_wrap: false
 permalink: /:title
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
 theme: minima
+highlighter: rouge
 plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-seo-tag
   - jekyll-sitemap
 exclude:
+  - less
+  - node_modules
+  - Gruntfile.js
+  - package.json
+  - README.md
   - Gemfile
   - Gemfile.lock
   - AGENTS.md
+  - plans
 
 timezone: Europe/London
 #Defult settings

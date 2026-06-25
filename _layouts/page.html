@@ -2,52 +2,19 @@
 layout: default
 ---
 
-<!-- Page Header -->
-<header class="intro-header"
-    style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
-                    {% if page.url != '/404.html' %}
-                    <hr class="small">
-                    {% endif %}
-                    {% if page.url == '/404.html' %}
-                    <br>
-                    <br>
-                    <br>
-                    {% endif %}
-                    <span class="subheading">{{ page.description }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
+{% if page.header-img %}
+<header class="page-hero has-image" style="background-image: url('{{ site.baseurl }}/{{ page.header-img }}')">
+{% else %}
+<header class="page-hero">
+{% endif %}
+  <div class="page-hero__inner">
+    <h1 class="page-hero__title">{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</h1>
+    {% if page.description and page.description != ' ' %}
+    <p class="page-hero__subtitle">{{ page.description }}</p>
+    {% endif %}
+  </div>
 </header>
 
-<!-- Main Content -->
-<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
-<script>
-    window.cookieconsent.initialise({
-        "palette": {
-            "popup": {
-                "background": "#edeff5",
-                "text": "#838391"
-            },
-            "button": {
-                "background": "transparent",
-                "text": "#4b81e8",
-                "border": "#4b81e8"
-            }
-        }
-    });
-</script>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            {{ content }}
-        </div>
-    </div>
-</div>
-
-<hr>
+<main class="container">
+  {{ content }}
+</main>
