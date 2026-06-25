@@ -20,7 +20,6 @@ kramdown:
   input: GFM
   hard_wrap: false
 permalink: /:title
-theme: minima
 highlighter: rouge
 plugins:
   - jekyll-feed
