@@ -56,37 +56,40 @@ description: "A machine learning app that runs entirely in the browser — uploa
 
 <script>
     var loadFile = function (event) {
-        $("#result").text("")
+        document.getElementById('result').textContent = '';
         var output = document.getElementById('output');
         output.src = URL.createObjectURL(event.target.files[0]);
         output.onload = function () {
-            URL.revokeObjectURL(output.src)
-        }
+            URL.revokeObjectURL(output.src);
+        };
     };
-
 
     let model;
     (async function () {
-        model = await tf.loadLayersModel(
-            "https://bbuluttekin.github.io/MSc-Project/static/model.json");
-        $('#spinner').parent().hide();
+        try {
+            model = await tf.loadLayersModel(
+                "https://bbuluttekin.github.io/MSc-Project/static/model.json");
+            document.getElementById('spinner').style.display = 'none';
+        } catch (e) {
+            document.getElementById('spinner').innerHTML = '<p>Model failed to load.</p>';
+        }
     })();
 
     var predict = async function () {
-        let image = $("#output").get(0);
+        if (!model) return;
+        let image = document.getElementById('output');
         let tensor = tf.browser.fromPixels(image);
         let resizedTensor = tf.image.resizeBilinear(tensor, [224, 224])
             .mul(1 / 255)
             .expandDims();
         let prediction = await model.predict(resizedTensor).data();
+        let result = document.getElementById('result');
         if (prediction <= 0.5) {
-            // Normal
-            $("#result").text(`Result: Pneumonia not detected. (Probability of pneumonia: ${Number(prediction).toFixed(3)})`);
+            result.textContent = `Result: Pneumonia not detected. (Probability of pneumonia: ${Number(prediction).toFixed(3)})`;
         } else {
-            // Pneumonia 
-            $("#result").text(`Result: Pneumonia detected. (Probability of pneumonia: ${Number(prediction).toFixed(3)})`);
+            result.textContent = `Result: Pneumonia detected. (Probability of pneumonia: ${Number(prediction).toFixed(3)})`;
         }
-    };  
+    };
 </script>
 
 
@@ -122,5 +125,5 @@ description: "A machine learning app that runs entirely in the browser — uploa
 </div>
 
 <div class="text-center">
-    <button type="button" class="btn btn-dark" id="predict-btn" onclick="predict()">Predict</button>
+    <button type="button" class="btn btn-primary" id="predict-btn" onclick="predict()">Predict</button>
 </div>
