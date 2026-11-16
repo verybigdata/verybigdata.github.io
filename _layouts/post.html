@@ -19,8 +19,10 @@ layout: default
   </div>
 </header>
 
-<article class="container post-content">
-  {{ content }}
+<main class="container post-content" id="main-content" tabindex="-1">
+  <article>
+    {{ content }}
+  </article>
 
   <nav class="post-pager" aria-label="Post navigation">
     {% if page.previous.url %}
@@ -30,4 +32,4 @@ layout: default
     <a class="pager-next" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}">{{ page.next.title }} &rarr;</a>
     {% endif %}
   </nav>
-</article>
+</main>

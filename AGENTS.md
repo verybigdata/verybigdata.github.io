@@ -40,7 +40,7 @@ _sass/
 
 assets/
   main.scss         ← imports all _sass partials; Jekyll compiles to assets/main.css
-  nav.js            ← scroll-aware navbar + dark/light theme toggle
+  nav.js            ← scroll-aware navbar + accessible mobile menu + dark/light theme toggle
 
 _layouts/
   default.html      ← HTML shell: head → nav → content → footer
@@ -49,7 +49,7 @@ _layouts/
 
 _includes/
   head.html         ← <head>: meta, anti-flash theme script, Google Fonts, main.css
-  nav.html          ← semantic <nav> with CSS-only hamburger + theme toggle button
+  nav.html          ← semantic <nav> with mobile menu button + theme toggle button
   footer.html       ← SVG social icons (RSS, Twitter, GitHub, LinkedIn, Email) + copyright
   g_analytics.html  ← Google Analytics 4
   third_party.html  ← MathJax 2.7.1 (async)
@@ -80,7 +80,7 @@ _includes/
 | Tablet | ≥ 640px |
 | Desktop | ≥ 768px |
 
-- Hamburger menu appears at ≤ 640px (CSS-only, no JS)
+- Hamburger menu appears at ≤ 640px (button controlled by `nav.js`)
 - Prose container max-width: `760px`
 - Nav inner max-width: `1200px`
 
